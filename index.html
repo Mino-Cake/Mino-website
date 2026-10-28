@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MINO CAKE — Bento Cake Custom untuk Setiap Momen Spesial</title>
+  <meta name="description" content="MINO CAKE menghadirkan bento cake custom mulai Rp 35.000 - Rp 45.000. Lihat katalog, video cara pembuatan, dan pesan langsung lewat WhatsApp & Instagram." />
+
+  <!-- ===== Tailwind CSS via CDN (cukup untuk demo; untuk produksi sebaiknya pakai build step) ===== -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- ===== Google Fonts: Poppins (body) + Pacifico (brand display) ===== -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- ===== Lucide Icons via CDN ===== -->
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+
+  <!-- ===== Inline SVG icon untuk TikTok (Lucide tidak punya) ===== -->
+  <svg style="display:none" xmlns="http://www.w3.org/2000/svg">
+    <symbol id="icon-tiktok" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64c.3 0 .58.04.85.12v-3.5a6.32 6.32 0 0 0-1-.05A6.34 6.34 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43V9.49a8.16 8.16 0 0 0 4.77 1.52V7.55a4.85 4.85 0 0 1-1.04-.86z"/>
+    </symbol>
+  </svg>
+
+  <style>
+    /* ============================================================
+       MINO CAKE — Brand palette (cream + dusty pink + caramel gold)
+       ============================================================ */
+    :root {
+      --bg:        oklch(0.985 0.012 60);
+      --fg:        oklch(0.22 0.04 30);
+      --card:      oklch(1 0.008 60);
+      --primary:   oklch(0.62 0.18 8);     /* dusty rose */
+      --primary-fg:oklch(0.99 0.005 60);
+      --secondary: oklch(0.94 0.02 50);
+      --accent:    oklch(0.82 0.13 65);   /* warm caramel */
+      --accent-fg: oklch(0.25 0.06 35);
+      --muted-fg:  oklch(0.5 0.04 30);
+      --border:    oklch(0.9 0.025 40);
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Poppins', ui-sans-serif, system-ui, sans-serif;
+      background-color: var(--bg);
+      color: var(--fg);
+    }
+    .font-display { font-family: 'Pacifico', cursive; }
+    .bg-bg { background-color: var(--bg); }
+    .bg-card { background-color: var(--card); }
+    .bg-primary { background-color: var(--primary); }
+    .text-primary { color: var(--primary); }
+    .text-primary-fg { color: var(--primary-fg); }
+    .bg-secondary { background-color: var(--secondary); }
+    .bg-accent { background-color: var(--accent); }
+    .text-accent-fg { color: var(--accent-fg); }
+    .text-muted { color: var(--muted-fg); }
+    .border-brand { border-color: var(--border); }
+    .ring-primary { --tw-ring-color: var(--primary); }
+    .btn-primary {
+      background-color: var(--primary);
+      color: var(--primary-fg);
+      transition: transform .15s ease, box-shadow .15s ease, opacity .15s ease;
+    }
+    .btn-primary:hover { opacity: .92; transform: translateY(-1px); box-shadow: 0 8px 20px -8px rgba(0,0,0,.25); }
+    .btn-outline {
+      background-color: transparent;
+      border: 1px solid var(--border);
+      color: var(--fg);
+      transition: background-color .15s ease, border-color .15s ease, color .15s ease;
+    }
+    .btn-outline:hover { background-color: var(--secondary); border-color: var(--primary); color: var(--primary); }
+    .chip {
+      border: 1px solid var(--border);
+      background-color: var(--card);
+      color: var(--fg);
+      transition: border-color .15s, color .15s;
+    }
+    .chip:hover { border-color: var(--primary); color: var(--primary); }
+    .scrollbar-hide::-webkit-scrollbar { display: none; }
+
+    /* fade-up animation saat scroll */
+    .reveal { opacity: 0; transform: translateY(20px); transition: opacity .6s ease, transform .6s ease; }
+    .reveal.is-visible { opacity: 1; transform: none; }
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { opacity: 1; transform: none; }
+      html { scroll-behavior: auto; }
+    }
+  </style>
+</head>
+
+<body class="min-h-screen flex flex-col bg-bg">
+
+<!-- ============================================================
+     KONFIGURASI BRAND — ubah nilai di sini saja!
+     ============================================================
+     • whatsapp     → nomor WA internasional TANPA "+" atau "0" di depan
+                     Contoh: 6281234567890 (untuk 0812-3456-7890)
+     • instagram    → username IG TANPA "@"
+     • tiktok       → username TikTok TANPA "@"
+     • videoSrc     → nama file video lokal (taruh di folder yang sama
+                     dengan file minocake.html ini)
+                     Contoh: 'video-brand.mp4' atau 'video-brand.mov'
+                     Kalau mau pakai YouTube lagi, tinggal ganti
+                     baris ini: videoSrc: 'https://www.youtube.com/embed/XXXX?autoplay=1'
+     • image_*      → URL gambar produk
+     ============================================================ -->
+<script>
+  const BRAND = {
+    name:        'MINO CAKE',
+    tagline:     'Bento Cake Custom untuk Setiap Momen Spesial',
+    description: 'Kue bento mini yang manis, lucu, dan bisa dicustom sesuai keinginanmu. Cocok untuk ulang tahun, pernikahan, anniversary, sampai kado kejutan.',
+    priceRange:  'Rp 35.000 – Rp 45.000',
+    whatsapp:    '6281331694738',
+    instagram:    'mino_cake11',
+    tiktok:       'mino_cake11',
+    // ====== VIDEO BRAND STORY ======
+    // Ganti 'video-brand.mp4' dengan nama file video kamu.
+    // Taruh file video di folder yang sama dengan minocake.html.
+    // Format yang didukung: .mp4 (paling umum), .webm, .mov
+    videoSrc:     'kue-video.mp4',
+    // Untuk thumbnail video sebelum diputar (otomatis pakai gambar brand_story)
+    location:    'Surabaya, Indonesia',
+    openHours:   'Senin – Sabtu, 09.00 – 20.00 WIB',
+    // Foto produk bento cake asli MINO CAKE.
+    // Pastikan file kue-1.png, kue-2.png, kue-3.png, kue-4.png ada di
+    // FOLDER YANG SAMA dengan file minocake.html ini.
+    images: {
+      hero:        'cake-1.jpeg',   // Foto utama di Hero section (Birthday Wishes)
+      brand_story: 'kue-1.png',   // Thumbnail video Brand Story (Sweet Seventeen)
+      product1:    'kue-1.png',   // Sweet Seventeen Collection
+      product2:    'cake-2.jpeg',   // Wedding & Chapter Collection
+      product3:    'cake-3.jpeg',   // Birthday Wishes Collection
+      product4:    'cake-1.jpeg',   // Birthday Numbers Collection
+    }
+  };
+
+  function waLink(text) {
+    return `https://wa.me/${BRAND.whatsapp}?text=${encodeURIComponent(text)}`;
+  }
+  const IG_LINK = `https://instagram.com/${BRAND.instagram}`;
+  const TIKTOK_LINK = `https://tiktok.com/@${BRAND.tiktok}`;
+</script>
+
+<!-- ===== HEADER ===== -->
+<header id="header" class="sticky top-0 z-40 transition-all duration-300">
+  <div class="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 sm:px-6">
+    <a href="#beranda" class="flex items-center gap-2">
+      <span class="grid h-9 w-9 place-items-center rounded-full bg-primary text-primary-fg shadow-sm">
+        <i data-lucide="cake" class="h-5 w-5"></i>
+      </span>
+      <span class="font-display text-xl text-primary" id="brand-name-1">MINO CAKE</span>
+    </a>
+
+    <nav class="hidden md:flex items-center gap-1">
+      <a href="#beranda"     class="rounded-full px-3 py-1.5 text-sm font-medium hover:bg-secondary hover:text-primary">Beranda</a>
+      <a href="#brand-story" class="rounded-full px-3 py-1.5 text-sm font-medium hover:bg-secondary hover:text-primary">Brand Story</a>
+      <a href="#katalog"    class="rounded-full px-3 py-1.5 text-sm font-medium hover:bg-secondary hover:text-primary">Katalog</a>
+      <a href="#bundling"    class="rounded-full px-3 py-1.5 text-sm font-medium hover:bg-secondary hover:text-primary">Paket Bundling</a>
+      <a href="#cara-pesan"  class="rounded-full px-3 py-1.5 text-sm font-medium hover:bg-secondary hover:text-primary">Cara Pesan</a>
+    </nav>
+
+    <div class="hidden md:flex items-center gap-2">
+      <a href="#" id="nav-tt" target="_blank" rel="noopener noreferrer" class="btn-outline inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-sm font-medium" aria-label="TikTok MINO CAKE">
+        <svg class="h-4 w-4"><use href="#icon-tiktok"/></svg> TikTok
+      </a>
+      <a href="#" id="nav-ig" target="_blank" rel="noopener noreferrer" class="btn-outline inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-sm font-medium" aria-label="Instagram MINO CAKE">
+        <i data-lucide="instagram" class="h-4 w-4"></i> IG
+      </a>
+      <a href="#" id="nav-wa" target="_blank" rel="noopener noreferrer" class="btn-primary inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-sm font-semibold" aria-label="WhatsApp MINO CAKE">
+        <i data-lucide="message-circle" class="h-4 w-4"></i> Pesan via WA
+      </a>
+    </div>
+
+    <button id="menu-toggle" class="md:hidden btn-outline inline-flex items-center justify-center rounded-full h-10 w-10" aria-label="Buka menu">
+      <i data-lucide="menu" class="h-5 w-5"></i>
+    </button>
+  </div>
+
+  <!-- Mobile drawer -->
+  <div id="mobile-menu" class="hidden md:hidden border-t border-brand bg-card">
+    <nav class="mx-auto max-w-6xl px-4 py-3 flex flex-col gap-1">
+      <a href="#beranda"     class="flex items-center justify-between rounded-xl px-4 py-3 text-base hover:bg-secondary hover:text-primary">Beranda <i data-lucide="chevron-right" class="h-4 w-4 opacity-50"></i></a>
+      <a href="#brand-story" class="flex items-center justify-between rounded-xl px-4 py-3 text-base hover:bg-secondary hover:text-primary">Brand Story <i data-lucide="chevron-right" class="h-4 w-4 opacity-50"></i></a>
+      <a href="#katalog"    class="flex items-center justify-between rounded-xl px-4 py-3 text-base hover:bg-secondary hover:text-primary">Katalog <i data-lucide="chevron-right" class="h-4 w-4 opacity-50"></i></a>
+      <a href="#bundling"   class="flex items-center justify-between rounded-xl px-4 py-3 text-base hover:bg-secondary hover:text-primary">Paket Bundling <i data-lucide="chevron-right" class="h-4 w-4 opacity-50"></i></a>
+      <a href="#cara-pesan" class="flex items-center justify-between rounded-xl px-4 py-3 text-base hover:bg-secondary hover:text-primary">Cara Pesan <i data-lucide="chevron-right" class="h-4 w-4 opacity-50"></i></a>
+      <a href="#" id="mobile-wa" target="_blank" rel="noopener noreferrer" class="btn-primary mt-2 inline-flex items-center justify-center gap-2 rounded-xl px-4 py-3 text-sm font-semibold">
+        <i data-lucide="message-circle" class="h-4 w-4"></i> Pesan via WhatsApp
+      </a>
+      <div class="grid grid-cols-2 gap-2">
+        <a href="#" id="mobile-ig" target="_blank" rel="noopener noreferrer" class="btn-outline inline-flex items-center justify-center gap-2 rounded-xl px-4 py-3 text-sm font-semibold">
+          <i data-lucide="instagram" class="h-4 w-4"></i> Instagram
+        </a>
+        <a href="#" id="mobile-tt" target="_blank" rel="noopener noreferrer" class="btn-outline inline-flex items-center justify-center gap-2 rounded-xl px-4 py-3 text-sm font-semibold">
+          <svg class="h-4 w-4"><use href="#icon-tiktok"/></svg> TikTok
+        </a>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<main class="flex-1">
+
+  <!-- ===== HERO ===== -->
+  <section id="beranda" class="relative overflow-hidden">
+    <div class="pointer-events-none absolute -top-24 -right-24 h-72 w-72 rounded-full bg-primary/15 blur-3xl"></div>
+    <div class="pointer-events-none absolute -bottom-32 -left-24 h-80 w-80 rounded-full bg-accent/40 blur-3xl"></div>
+
+    <div class="relative mx-auto grid max-w-6xl items-center gap-8 px-4 py-12 sm:px-6 md:grid-cols-2 md:py-20">
+      <div class="order-2 md:order-1">
+        <span class="inline-flex items-center gap-1.5 rounded-full bg-secondary px-3 py-1 text-xs font-medium text-muted">
+          <i data-lucide="sparkles" class="h-3.5 w-3.5"></i> Bakery House • <span id="brand-loc">Jakarta, Indonesia</span>
+        </span>
+        <h1 class="font-display text-5xl leading-tight text-primary sm:text-6xl md:text-7xl mt-4" id="brand-name-2">MINO CAKE</h1>
+        <p class="mt-3 text-lg font-medium sm:text-xl" id="brand-tagline">Bento Cake Custom untuk Setiap Momen Spesial</p>
+        <p class="mt-3 max-w-md text-sm text-muted sm:text-base" id="brand-desc">Kue bento mini yang manis, lucu, dan bisa dicustom sesuai keinginanmu.</p>
+
+        <div class="mt-6 flex flex-wrap items-center gap-3">
+          <a href="#" id="hero-wa" target="_blank" rel="noopener noreferrer" class="btn-primary inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-semibold">
+            <i data-lucide="message-circle" class="h-5 w-5"></i> Pesan Sekarang
+          </a>
+          <a href="#katalog" class="btn-outline inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-semibold">
+            <i data-lucide="cake" class="h-5 w-5"></i> Lihat Katalog
+          </a>
+        </div>
+
+        <div class="mt-8 grid grid-cols-3 gap-3">
+          <div class="rounded-xl border border-brand bg-card p-3">
+            <div class="flex items-center gap-1.5 text-primary"><i data-lucide="star" class="h-4 w-4"></i><span class="text-[11px] uppercase tracking-wide text-muted">Harga</span></div>
+            <p class="mt-1 text-sm font-semibold" id="hero-price">Rp 35.000 – Rp 45.000</p>
+          </div>
+          <div class="rounded-xl border border-brand bg-card p-3">
+            <div class="flex items-center gap-1.5 text-primary"><i data-lucide="gift" class="h-4 w-4"></i><span class="text-[11px] uppercase tracking-wide text-muted">Box kado</span></div>
+            <p class="mt-1 text-sm font-semibold">Sudah termasuk</p>
+          </div>
+          <div class="rounded-xl border border-brand bg-card p-3">
+            <div class="flex items-center gap-1.5 text-primary"><i data-lucide="clock" class="h-4 w-4"></i><span class="text-[11px] uppercase tracking-wide text-muted">Proses</span></div>
+            <p class="mt-1 text-sm font-semibold">1–4 hari</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="order-1 md:order-2">
+        <div class="relative mx-auto max-w-md">
+          <div class="absolute inset-0 -rotate-6 rounded-[2rem] bg-primary/10"></div>
+          <div class="absolute -inset-2 rotate-3 rounded-[2.2rem] bg-accent/30 blur-md"></div>
+          <img id="hero-image" src="" alt="Bento cake custom dari MINO CAKE"
+               class="relative aspect-[3/4] w-full rounded-[2rem] object-cover shadow-xl ring-4 ring-white" />
+          <span class="absolute -bottom-3 -left-3 inline-flex items-center gap-1 rounded-full bg-primary px-3 py-2 text-xs text-primary-fg shadow-lg">
+            <i data-lucide="heart" class="h-3.5 w-3.5" fill="currentColor"></i> Made fresh
+          </span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== BRAND STORY / VIDEO ===== -->
+  <section id="brand-story" class="bg-card py-16 md:py-24">
+    <div class="mx-auto max-w-6xl px-4 sm:px-6">
+      <div class="grid gap-10 md:grid-cols-2 md:items-center">
+        <div class="reveal">
+          <span class="inline-flex items-center gap-1.5 rounded-full bg-secondary px-3 py-1 text-xs font-medium text-muted">
+            <i data-lucide="play" class="h-3.5 w-3.5"></i> Brand Story
+          </span>
+          <h2 class="font-display text-3xl text-primary sm:text-4xl mt-3">Kisah di Balik Setiap Bento Cake</h2>
+          <p class="mt-4 text-sm text-muted sm:text-base">
+            Setiap cake dibuat dengan tangan, dari pengadukan adonan sampai proses decorating yang detail.
+            Tonton video singkat tentang cara kami membuat MINO CAKE dari nol — pilihan bahan, teknik piping, sampai finishing yang manis dan cantik.
+          </p>
+          <ul class="mt-6 space-y-3">
+            <li class="flex items-start gap-3"><span class="mt-0.5 grid h-5 w-5 place-items-center rounded-full bg-primary text-primary-fg"><i data-lucide="check" class="h-3 w-3"></i></span><span class="text-sm">Bahan segar & tanpa pengawet berlebih</span></li>
+            <li class="flex items-start gap-3"><span class="mt-0.5 grid h-5 w-5 place-items-center rounded-full bg-primary text-primary-fg"><i data-lucide="check" class="h-3 w-3"></i></span><span class="text-sm">Decorating dilakukan manual tangan kami</span></li>
+            <li class="flex items-start gap-3"><span class="mt-0.5 grid h-5 w-5 place-items-center rounded-full bg-primary text-primary-fg"><i data-lucide="check" class="h-3 w-3"></i></span><span class="text-sm">Custom desain sesuai keinginanmu</span></li>
+          </ul>
+          <button id="video-btn" class="btn-outline mt-6 inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold">
+            <i data-lucide="play" class="h-4 w-4"></i> Tonton Video Brand
+          </button>
+        </div>
+
+        <button id="video-thumb" class="reveal group relative block overflow-hidden rounded-3xl shadow-xl ring-1 ring-border/60" aria-label="Putar video brand MINO CAKE">
+          <img id="brand-story-img" src="" alt="Pratinjau video cara membuat bento cake MINO CAKE" class="aspect-video w-full object-cover transition-transform duration-500 group-hover:scale-105" />
+          <div class="absolute inset-0 grid place-items-center bg-black/20 transition-colors group-hover:bg-black/30">
+            <span class="grid h-16 w-16 place-items-center rounded-full bg-white/95 text-primary shadow-lg transition-transform group-hover:scale-110">
+              <i data-lucide="play" class="h-7 w-7" fill="currentColor"></i>
+            </span>
+          </div>
+          <div class="absolute bottom-3 left-3 rounded-full bg-black/60 px-3 py-1 text-xs text-white backdrop-blur">Brand Story • 1 menit</div>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== KATALOG ===== -->
+  <section id="katalog" class="py-16 md:py-24">
+    <div class="mx-auto max-w-6xl px-4 sm:px-6">
+      <div class="mb-10 text-center">
+        <span class="inline-flex items-center gap-1.5 rounded-full bg-secondary px-3 py-1 text-xs font-medium text-muted"><i data-lucide="cake" class="h-3.5 w-3.5"></i> Katalog Menu</span>
+        <h2 class="font-display text-3xl text-primary sm:text-4xl mt-3">Pilihan Desain Bento Cake</h2>
+        <p class="mx-auto mt-3 max-w-xl text-sm text-muted sm:text-base">Empat koleksi favorit kami. Setiap desain bisa dicustom ulang sesuai tema, warna, dan nama tulisan yang kamu mau.</p>
+      </div>
+
+      <div id="catalog-grid" class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4"></div>
+
+      <div class="mt-10 rounded-2xl bg-secondary/60 p-5 sm:p-6">
+        <p class="text-sm font-semibold">Tema desain yang sering dipesan:</p>
+        <div class="mt-3 flex flex-wrap gap-2" id="themes"></div>
+        <p class="mt-4 text-xs text-muted">Punya tema lain? Tinggal kirim referensi gambar ke WhatsApp kami, kami buatkan versi bento cake-nya.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== BUNDLING ===== -->
+  <section id="bundling" class="py-16 md:py-24" style="background: linear-gradient(to bottom, oklch(0.82 0.13 65 / .2), var(--bg));">
+    <div class="mx-auto max-w-6xl px-4 sm:px-6">
+      <div class="mb-10 text-center">
+        <span class="inline-flex items-center gap-1.5 rounded-full bg-secondary px-3 py-1 text-xs font-medium text-muted"><i data-lucide="gift" class="h-3.5 w-3.5"></i> Paket Bundling</span>
+        <h2 class="font-display text-3xl text-primary sm:text-4xl mt-3">Lebih Hemat dengan Paket</h2>
+        <p class="mx-auto mt-3 max-w-xl text-sm text-muted sm:text-base">Pesan lebih dari satu cake untuk acara spesial dan hemat lebih banyak. Semua paket sudah termasuk box kado kraft.</p>
+      </div>
+      <div id="bundles-grid" class="grid gap-6 md:grid-cols-3"></div>
+    </div>
+  </section>
+
+  <!-- ===== CARA PESAN ===== -->
+  <section id="cara-pesan" class="py-16 md:py-24">
+    <div class="mx-auto max-w-6xl px-4 sm:px-6">
+      <div class="mb-10 text-center">
+        <span class="inline-flex items-center gap-1.5 rounded-full bg-secondary px-3 py-1 text-xs font-medium text-muted"><i data-lucide="shopping-cart" class="h-3.5 w-3.5"></i> Cara Pemesanan</span>
+        <h2 class="font-display text-3xl text-primary sm:text-4xl mt-3">Pesan Bento Cake dalam 4 Langkah</h2>
+        <p class="mx-auto mt-3 max-w-xl text-sm text-muted sm:text-base">Cukup chat kami via WhatsApp atau Instagram. Kami bantu sampai cake siap diambil / diantar.</p>
+      </div>
+
+      <div id="steps-grid" class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4"></div>
+
+      <div class="mt-12 overflow-hidden rounded-3xl bg-primary text-primary-fg shadow-xl">
+        <div class="grid gap-6 p-6 sm:p-10 md:grid-cols-2 md:items-center">
+          <div>
+            <h3 class="font-display text-3xl sm:text-4xl">Siap pesan cake-nya?</h3>
+            <p class="mt-2 text-sm text-primary-fg/85">Chat kami sekarang lewat WhatsApp atau Instagram. Kami balas cepat di jam operasional.</p>
+            <div class="mt-5 flex flex-wrap gap-3">
+              <a href="#" id="cta-wa" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 rounded-full bg-white px-5 py-2.5 text-sm font-semibold text-primary hover:bg-white/90">
+                <i data-lucide="message-circle" class="h-5 w-5"></i> Chat WhatsApp
+              </a>
+              <a href="#" id="cta-ig" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 rounded-full border border-white/40 px-5 py-2.5 text-sm font-semibold text-white hover:bg-white/10">
+                <i data-lucide="instagram" class="h-5 w-5"></i> Instagram
+              </a>
+              <a href="#" id="cta-tt" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 rounded-full border border-white/40 px-5 py-2.5 text-sm font-semibold text-white hover:bg-white/10">
+                <svg class="h-5 w-5"><use href="#icon-tiktok"/></svg> TikTok
+              </a>
+            </div>
+          </div>
+          <div class="rounded-2xl bg-white/10 p-5 backdrop-blur">
+            <ul class="space-y-3 text-sm" id="contact-list"></ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- ===== FOOTER ===== -->
+<footer class="mt-auto border-t border-brand bg-card">
+  <div class="mx-auto max-w-6xl px-4 py-10 sm:px-6">
+    <div class="grid gap-6 sm:grid-cols-2 md:grid-cols-3">
+      <div>
+        <div class="flex items-center gap-2">
+          <span class="grid h-8 w-8 place-items-center rounded-full bg-primary text-primary-fg"><i data-lucide="cake" class="h-4 w-4"></i></span>
+          <span class="font-display text-lg text-primary" id="brand-name-3">MINO CAKE</span>
+        </div>
+        <p class="mt-3 max-w-xs text-xs text-muted" id="footer-tagline">Bento Cake Custom untuk Setiap Momen Spesial.</p>
+      </div>
+      <div>
+        <h4 class="text-sm font-semibold">Menu</h4>
+        <ul class="mt-3 space-y-2 text-sm text-muted">
+          <li><a href="#beranda"     class="hover:text-primary">Beranda</a></li>
+          <li><a href="#brand-story" class="hover:text-primary">Brand Story</a></li>
+          <li><a href="#katalog"    class="hover:text-primary">Katalog</a></li>
+          <li><a href="#bundling"   class="hover:text-primary">Paket Bundling</a></li>
+          <li><a href="#cara-pesan" class="hover:text-primary">Cara Pesan</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="text-sm font-semibold">Hubungi</h4>
+        <ul class="mt-3 space-y-2 text-sm text-muted" id="footer-contact"></ul>
+      </div>
+    </div>
+    <div class="mt-8 flex flex-col items-center justify-between gap-3 border-t border-brand pt-5 text-xs text-muted sm:flex-row">
+      <p>© <span id="year">2026</span> MINO CAKE. Semua hak dilindungi.</p>
+      <p class="inline-flex items-center gap-1">Dibuat dengan <i data-lucide="heart" class="h-3 w-3" fill="currentColor"></i> untuk pecinta kue</p>
+    </div>
+  </div>
+</footer>
+
+<!-- ===== VIDEO MODAL (HTML5 <video> lokal — bukan YouTube) ===== -->
+<div id="video-modal" class="fixed inset-0 z-[60] hidden place-items-center bg-black/80 p-4" style="display:none;">
+  <div class="relative w-full max-w-3xl">
+    <button id="video-close" aria-label="Tutup video" class="absolute -top-10 right-0 grid h-9 w-9 place-items-center rounded-full bg-white/20 text-white hover:bg-white/30">
+      <i data-lucide="x" class="h-5 w-5"></i>
+    </button>
+    <div class="aspect-video w-full overflow-hidden rounded-2xl bg-black shadow-2xl">
+      <!--
+        Tag <video> di bawah akan otomatis memutar file video yang kamu taruh
+        di folder yang sama dengan minocake.html. Pastikan nama file sama
+        dengan BRAND.videoSrc (default: 'video-brand.mp4').
+        Format didukung: .mp4 (paling disarankan), .webm, .mov
+      -->
+      <video id="brand-video" class="h-full w-full" controls playsinline preload="metadata"
+             poster="">
+        <source src="" type="video/mp4" />
+        Browser kamu tidak mendukung pemutaran video HTML5.
+      </video>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     JAVASCRIPT: render konten + interaksi
+     ============================================================ -->
+<script>
+  // ===== DATA KATALOG (bisa kamu edit) =====
+  const CATALOG = [
+    { id: 'p1', title: 'Bento Cake', image: BRAND.images.product1, desc: 'Bento cake dengan desain custom sesuai keinginanmu. Cocok untuk pesta ulang tahun. ', tags: ['Birthday','Bunga','Pink'], price: 'Rp 38.000' },
+    { id: 'p2', title: 'Midi Butterfly', image: BRAND.images.product2, desc: 'Kue midi custom diameter 14 cm dengan desain sesuai keinginanmu. ', tags: ['Wedding','Custom Name','Birthday'], price: 'Rp 75.000' },
+    { id: 'p3', title: 'Midi Custom', image: BRAND.images.product3, desc: 'Kue midi custom dngan dekorasi butterfly sesuai keinginanmu', tags: ['Birthday','Cherry','Custom Name'], price: 'Rp 75.000' },
+    { id: 'p4', title: 'Midi Mouse', image: BRAND.images.product4, desc: 'Midi mouse dengan perpaduan rasa matcha, chocolate, dan tiramius.', tags: ['Birthday','Wedding','Love'], price: 'Rp 35.000' },
+  ];
+
+  const THEMES = ['Birthday','Wedding','Anniversary','Sweet 17','Prewedding','Baby 100 Days','Graduation','Engagement','Love & Hearts','Floral','Minimalis','Custom Lainnya'];
+
+  const BUNDLES = [
+    { name: 'Solo Box',    price: 'Rp 38.000',  note: '1 bento cake custom',    features: ['Desain bebas pilih tema','Tulisan nama custom','Box kado kraft sudah termasuk','Waktu proses 1–2 hari'], highlight: false, accent: 'bg-secondary' },
+    { name: 'Sweet Duo',   price: 'Rp 73.000',  note: '2 cake custom',     features: ['Hemat Rp.3.000, desain boleh beda','Cocok untuk pasangan / sahabat','Waktu proses 2–3 hari'], highlight: true,  accent: 'bg-primary text-primary-fg' },
+    { name: 'Party Pack',  price: 'Rp 145.000', note: '3 Cake custom', features: ['4 cake, desain boleh beda','Cocok untuk acara kecil','Waktu proses 3–4 hari','Hemat Rp 6.000'], highlight: false, accent: 'bg-accent text-accent-fg' },
+  ];
+
+  const STEPS = [
+    { icon: 'message-circle', title: 'Pilih & Chat', desc: 'Pilih desain dari katalog atau kirim referensimu ke WhatsApp / IG MINO CAKE.' },
+    { icon: 'sparkles',       title: 'Konfirmasi Desain', desc: 'Kami bantu finalkan desain, nama tulisan, dan warna sesuai keinginanmu.' },
+    { icon: 'shopping-cart',  title: 'Pesan & DP', desc: 'Lakukan DP 50% untuk lock slot. Sisa dibayar saat cake jadi / diambil.' },
+    { icon: 'cake',           title: 'Cake Siap Diambil', desc: 'Cake siap diambil / diantar sesuai jadwal yang sudah disepakati.' },
+  ];
+
+  // ===== Render Katalog =====
+  const catalogGrid = document.getElementById('catalog-grid');
+  CATALOG.forEach(item => {
+    const tags = item.tags.map(t => `<span class="rounded-full bg-secondary px-2 py-0.5 text-[10px] font-medium text-muted">#${t}</span>`).join('');
+    const waText = `Halo ${BRAND.name}! Saya tertarik dengan "${item.title}" (${item.price}). Bisa minta info lengkapnya?`;
+    catalogGrid.insertAdjacentHTML('beforeend', `
+      <div class="reveal group h-full overflow-hidden rounded-2xl border border-brand bg-card transition-all hover:-translate-y-1 hover:shadow-xl">
+        <div class="relative aspect-[3/4] overflow-hidden bg-secondary">
+          <img src="${item.image}" alt="Bento cake ${item.title}" class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy" />
+          <span class="absolute top-2 right-2 rounded-full bg-white/90 px-2 py-1 text-[10px] font-semibold shadow-sm">${item.price}</span>
+        </div>
+        <div class="p-4">
+          <h3 class="font-semibold">${item.title}</h3>
+          <p class="mt-1 text-xs text-muted line-clamp-3">${item.desc}</p>
+          <div class="mt-3 flex flex-wrap gap-1.5">${tags}</div>
+          <a href="${waLink(waText)}" target="_blank" rel="noopener noreferrer" class="btn-outline mt-4 inline-flex w-full items-center justify-center gap-1.5 rounded-full px-3 py-2 text-xs font-semibold">
+            <i data-lucide="message-circle" class="h-4 w-4"></i> Pesan desain ini
+          </a>
+        </div>
+      </div>
+    `);
+  });
+
+  // ===== Render Themes =====
+  const themesBox = document.getElementById('themes');
+  THEMES.forEach(t => {
+    themesBox.insertAdjacentHTML('beforeend', `<span class="chip rounded-full px-3 py-1 text-xs">${t}</span>`);
+  });
+
+  // ===== Render Bundles =====
+  const bundlesGrid = document.getElementById('bundles-grid');
+  BUNDLES.forEach(b => {
+    const featHTML = b.features.map(f => `
+      <li class="flex items-start gap-2 text-sm">
+        <span class="mt-0.5 grid h-4 w-4 shrink-0 place-items-center rounded-full ${b.highlight ? 'bg-white/30' : 'bg-primary'} text-white"><i data-lucide="check" class="h-2.5 w-2.5"></i></span>
+        <span>${f}</span>
+      </li>`).join('');
+    const waText = `Halo ${BRAND.name}! Saya mau pesan paket "${b.name}" (${b.price}). Bisa dibantu?`;
+    const bgClass = b.highlight ? 'bg-primary text-primary-fg ring-2 ring-primary' : 'bg-card text-fg border border-brand';
+    const btnClass = b.highlight ? 'bg-white text-primary hover:bg-white/90' : 'btn-outline';
+    bundlesGrid.insertAdjacentHTML('beforeend', `
+      <div class="reveal relative rounded-3xl p-6 shadow-lg ${bgClass}">
+        ${b.highlight ? '<span class="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-accent px-3 py-1 text-[10px] font-bold uppercase tracking-wide text-accent-fg shadow">Paling Laris</span>' : ''}
+        <h3 class="font-display text-2xl">${b.name}</h3>
+        <p class="text-xs ${b.highlight ? 'text-white/80' : 'text-muted'}">${b.note}</p>
+        <p class="mt-4 text-3xl font-bold">${b.price}</p>
+        <ul class="mt-4 space-y-2">${featHTML}</ul>
+        <a href="${waLink(waText)}" target="_blank" rel="noopener noreferrer" class="${btnClass} mt-6 inline-flex w-full items-center justify-center gap-2 rounded-full px-4 py-2.5 text-sm font-semibold">
+          <i data-lucide="message-circle" class="h-4 w-4"></i> Pesan Paket Ini
+        </a>
+      </div>
+    `);
+  });
+
+  // ===== Render Steps =====
+  const stepsGrid = document.getElementById('steps-grid');
+  STEPS.forEach((s, i) => {
+    stepsGrid.insertAdjacentHTML('beforeend', `
+      <div class="reveal relative h-full rounded-2xl border border-brand bg-card p-5">
+        <span class="absolute -top-3 -right-3 grid h-8 w-8 place-items-center rounded-full bg-accent text-sm font-bold text-accent-fg shadow">${i+1}</span>
+        <span class="grid h-11 w-11 place-items-center rounded-2xl bg-primary/10 text-primary"><i data-lucide="${s.icon}" class="h-5 w-5"></i></span>
+        <h3 class="mt-3 font-semibold">${s.title}</h3>
+        <p class="mt-1 text-xs text-muted">${s.desc}</p>
+      </div>
+    `);
+  });
+
+  // ===== Isi placeholder brand dinamis =====
+  function setText(id, val) { const el = document.getElementById(id); if (el && val) el.textContent = val; }
+  setText('brand-loc', BRAND.location);
+  setText('brand-name-1', BRAND.name);
+  setText('brand-name-2', BRAND.name);
+  setText('brand-name-3', BRAND.name);
+  setText('brand-tagline', BRAND.tagline);
+  setText('brand-desc', BRAND.description);
+  setText('hero-price', BRAND.priceRange);
+  setText('footer-tagline', `${BRAND.tagline}. Bento cake custom mulai ${BRAND.priceRange}.`);
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // Set gambar dinamis
+  document.getElementById('hero-image').src = BRAND.images.hero;
+  document.getElementById('brand-story-img').src = BRAND.images.brand_story;
+
+  // Set link WhatsApp & IG ke semua tombol
+  const waTextDefault = `Halo ${BRAND.name}! Saya mau pesan bento cake custom. Bisa dibantu?`;
+  const waHref = waLink(waTextDefault);
+  ['nav-wa','hero-wa','mobile-wa','cta-wa'].forEach(id => {
+    const el = document.getElementById(id); if (el) el.href = waHref;
+  });
+  ['nav-ig','mobile-ig','cta-ig'].forEach(id => {
+    const el = document.getElementById(id); if (el) el.href = IG_LINK;
+  });
+  ['nav-tt','mobile-tt','cta-tt'].forEach(id => {
+    const el = document.getElementById(id); if (el) el.href = TIKTOK_LINK;
+  });
+
+  // Set video src & poster (HTML5 <video> lokal, bukan YouTube)
+  const brandVideo = document.getElementById('brand-video');
+  brandVideo.querySelector('source').src = BRAND.videoSrc;
+  brandVideo.poster = BRAND.images.brand_story;
+  brandVideo.load();
+
+  // Contact list (CTA section)
+  const contactList = document.getElementById('contact-list');
+  contactList.innerHTML = `
+    <li class="flex items-center gap-3"><i data-lucide="phone" class="h-4 w-4 shrink-0 text-white"></i><span>WhatsApp: 0813-3169-4738</span></li>
+    <li class="flex items-center gap-3"><i data-lucide="instagram" class="h-4 w-4 shrink-0 text-white"></i><span>Instagram: @${BRAND.instagram}</span></li>
+    <li class="flex items-center gap-3"><svg class="h-4 w-4 shrink-0 text-white"><use href="#icon-tiktok"/></svg><span>TikTok: @${BRAND.tiktok}</span></li>
+    <li class="flex items-center gap-3"><i data-lucide="map-pin" class="h-4 w-4 shrink-0 text-white"></i><span>Lokasi: ${BRAND.location}</span></li>
+    <li class="flex items-center gap-3"><i data-lucide="clock" class="h-4 w-4 shrink-0 text-white"></i><span>Jam buka: ${BRAND.openHours}</span></li>
+  `;
+
+  // Footer contact
+  const footerContact = document.getElementById('footer-contact');
+  footerContact.innerHTML = `
+    <li><a href="${waLink('Halo ' + BRAND.name + '!')}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 hover:text-primary"><i data-lucide="message-circle" class="h-4 w-4"></i> WhatsApp</a></li>
+    <li><a href="${IG_LINK}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 hover:text-primary"><i data-lucide="instagram" class="h-4 w-4"></i> @${BRAND.instagram}</a></li>
+    <li><a href="${TIKTOK_LINK}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 hover:text-primary"><svg class="h-4 w-4"><use href="#icon-tiktok"/></svg> @${BRAND.tiktok}</a></li>
+    <li class="inline-flex items-center gap-2"><i data-lucide="map-pin" class="h-4 w-4"></i> ${BRAND.location}</li>
+    <li class="inline-flex items-center gap-2"><i data-lucide="clock" class="h-4 w-4"></i> ${BRAND.openHours}</li>
+  `;
+
+  // ===== Mobile menu toggle =====
+  const menuBtn = document.getElementById('menu-toggle');
+  const mobileMenu = document.getElementById('mobile-menu');
+  menuBtn.addEventListener('click', () => {
+    mobileMenu.classList.toggle('hidden');
+    const isOpen = !mobileMenu.classList.contains('hidden');
+    menuBtn.innerHTML = isOpen
+      ? '<i data-lucide="x" class="h-5 w-5"></i>'
+      : '<i data-lucide="menu" class="h-5 w-5"></i>';
+    lucide.createIcons();
+  });
+  // Tutup mobile menu saat klik link
+  mobileMenu.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      mobileMenu.classList.add('hidden');
+      menuBtn.innerHTML = '<i data-lucide="menu" class="h-5 w-5"></i>';
+      lucide.createIcons();
+    });
+  });
+
+  // ===== Sticky header background on scroll =====
+  const header = document.getElementById('header');
+  function onScroll() {
+    if (window.scrollY > 12) {
+      header.classList.add('bg-bg/90','backdrop-blur-md','shadow-sm','border-b','border-brand');
+    } else {
+      header.classList.remove('bg-bg/90','backdrop-blur-md','shadow-sm','border-b','border-brand');
+    }
+  }
+  onScroll();
+  window.addEventListener('scroll', onScroll, { passive: true });
+
+  // ===== Video modal (HTML5 <video> lokal) =====
+  const videoModal = document.getElementById('video-modal');
+  const brandVideoEl = document.getElementById('brand-video');
+  function openVideo() {
+    videoModal.style.display = 'grid';
+    document.body.style.overflow = 'hidden';
+    // Auto-play saat modal terbuka (muted supaya browser tidak block autoplay)
+    brandVideoEl.muted = false;
+    const playPromise = brandVideoEl.play();
+    if (playPromise && typeof playPromise.catch === 'function') {
+      playPromise.catch(() => {
+        // Kalau browser block autoplay dengan suara, paksa muted dulu
+        brandVideoEl.muted = true;
+        brandVideoEl.play().catch(() => {});
+      });
+    }
+  }
+  function closeVideo() {
+    brandVideoEl.pause();
+    brandVideoEl.currentTime = 0;
+    videoModal.style.display = 'none';
+    document.body.style.overflow = '';
+  }
+  document.getElementById('video-btn').addEventListener('click', openVideo);
+  document.getElementById('video-thumb').addEventListener('click', openVideo);
+  document.getElementById('video-close').addEventListener('click', closeVideo);
+  videoModal.addEventListener('click', (e) => { if (e.target === videoModal) closeVideo(); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && videoModal.style.display === 'grid') closeVideo(); });
+
+  // ===== Scroll reveal animation =====
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  // ===== Render ulang icon Lucide setelah inject HTML dinamis =====
+  lucide.createIcons();
+</script>
+
+</body>
+</html>
